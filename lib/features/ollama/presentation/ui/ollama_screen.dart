@@ -1,33 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class OllamaScreen extends StatefulWidget {
+  const OllamaScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'AI Chat',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const AIChatPage(),
-    );
-  }
+  State<OllamaScreen> createState() => _OllamaScreenState();
 }
 
-class AIChatPage extends StatefulWidget {
-  const AIChatPage({super.key});
-
-  @override
-  State<AIChatPage> createState() => _AIChatPageState();
-}
-
-class _AIChatPageState extends State<AIChatPage> {
+class _OllamaScreenState extends State<OllamaScreen> {
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _requestController = TextEditingController();
   final List<String> _aiResponses = [];
