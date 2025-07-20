@@ -5,8 +5,43 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../domain/entity/message.dart';
 import '../../../bloc/ollama_bloc.dart';
 
-class OllamaRespondWidget extends StatelessWidget {
+class OllamaRespondWidget extends StatefulWidget {
   const OllamaRespondWidget({super.key});
+
+  @override
+  State<OllamaRespondWidget> createState() => _OllamaRespondWidgetState();
+}
+
+class _OllamaRespondWidgetState extends State<OllamaRespondWidget> {
+  late final ScrollController _scrollController;
+  bool _isUserScrolling = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _maybeScrollToBottom(OllamaSuccess state) {
+    final ScrollPosition position = _scrollController.position;
+    if (_isUserScrolling) {
+      return;
+    }
+
+    if (state.messagesEndsWithUserMessage) {
+      _scrollController.jumpTo(position.maxScrollExtent);
+    }
+
+    if (position.maxScrollExtent - position.pixels < 50) {
+      _scrollController.jumpTo(position.maxScrollExtent);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +61,28 @@ class OllamaRespondWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: BlocBuilder<OllamaBloc, OllamaState>(
-              builder: (BuildContext context, OllamaState state) {
-                return ListView.builder(
+            child: GestureDetector(
+              onLongPress: () {
+                _isUserScrolling = true;
+              },
+              onLongPressEnd: (_) {
+                _isUserScrolling = false;
+              },
+              child: BlocConsumer<OllamaBloc, OllamaState>(
+                listener: (BuildContext context, OllamaState state) {
+                  if (state is OllamaSuccess) {
+                    WidgetsBinding.instance.addPostFrameCallback(
+                        (_) => _maybeScrollToBottom(state));
+                  }
+                },
+                builder: (BuildContext context, OllamaState state) {
+                  return ListView.builder(
+                    controller: _scrollController,
                     itemCount:
                         state is OllamaSuccess ? state.messages.length : 0,
-                    // Replace with actual response count
                     itemBuilder: (BuildContext context, int index) {
                       final Message message =
                           (state as OllamaSuccess).messages[index];
-
                       if (message is UserMessage) {
                         return Bubble(
                           margin: const BubbleEdges.only(top: 10),
@@ -59,8 +106,10 @@ class OllamaRespondWidget extends StatelessWidget {
                           ),
                         );
                       }
-                    });
-              },
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],
