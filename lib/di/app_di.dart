@@ -69,8 +69,8 @@ final class AppDI {
       ),
     );
 
-    locator.registerLazySingleton<Fetch>(
-      () => Fetch(
+    locator.registerLazySingleton<GenerateAnswerUseCase>(
+      () => GenerateAnswerUseCase(
         olamaRepository: locator<OlamaRepository>(),
       ),
     );

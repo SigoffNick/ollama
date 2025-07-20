@@ -22,8 +22,8 @@ class AppConfig {
     switch (flavor) {
       case Flavor.prod:
       case Flavor.dev:
-        baseUrl = '';
-        stgUrl = '';
+        baseUrl = 'http://localhost:11434';
+        stgUrl = 'http://localhost:11434';
         break;
     }
 

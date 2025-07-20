@@ -1,3 +1,7 @@
+import '../payload/export_payloads.dart';
+
 abstract class OlamaRepository {
-  Future<void> fetch();
+  Future<void> generateAnswer({
+    required GenerateAnswerPayload payload,
+  });
 }
