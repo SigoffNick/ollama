@@ -5,7 +5,8 @@ import '../use_case.dart';
 
 class GenerateAnswerUseCase
     implements
-        StreamUseCase<GenerateAnswerPayload, OllamaCompletionChunkModel> {
+        FutureUseCase<GenerateAnswerPayload,
+            Stream<OllamaCompletionChunkModel>> {
   final OllamaRepository _olamaRepository;
 
   GenerateAnswerUseCase({
@@ -13,7 +14,8 @@ class GenerateAnswerUseCase
   }) : _olamaRepository = olamaRepository;
 
   @override
-  Stream<OllamaCompletionChunkModel> execute(GenerateAnswerPayload input) {
+  Future<Stream<OllamaCompletionChunkModel>> execute(
+      GenerateAnswerPayload input) {
     return _olamaRepository.generateAnswer(
       payload: input,
     );

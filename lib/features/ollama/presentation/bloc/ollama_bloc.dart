@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/enum/export_enums.dart';
 import '../../data/model/ollama_completion_chunk_model.dart';
+import '../../domain/entity/message.dart';
 import '../../domain/payload/export_payloads.dart';
 import '../../domain/use_case/export_use_cases.dart';
 
@@ -21,7 +22,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
         super(
           OllamaSuccess(
             model: OllamaModel.llama3dot1latest,
-            messages: <StringBuffer>[],
+            messages: <Message>[],
           ),
         ) {
     on<GenerateAnswerEvent>(_onGenerateAnswer);
@@ -34,26 +35,42 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
   ) async {
     if (state is OllamaSuccess) {
       final OllamaSuccess currentState = state as OllamaSuccess;
+
+      emit(
+        currentState.copyWith(
+          messages: List<Message>.from(currentState.messages)
+            ..add(
+              UserMessage(
+                content: StringBuffer(event.question),
+              ),
+            ),
+        ),
+      );
+
       try {
         final Stream<OllamaCompletionChunkModel> messageStream =
-            _generateAnswerUseCase.execute(
+            await _generateAnswerUseCase.execute(
           GenerateAnswerPayload(
             prompt: event.question,
             model: currentState.model,
           ),
         );
 
-        if (currentState.messages.isEmpty) {
-          currentState.messages.add(StringBuffer());
-        }
+        final OllamaSuccess newState = state as OllamaSuccess;
+
+        newState.messages.add(
+          AssistantMessage(
+            content: StringBuffer(),
+          ),
+        );
 
         await emit.onEach(messageStream,
             onData: (OllamaCompletionChunkModel message) {
-          currentState.messages.last.write(message.message?.content ?? '');
+          newState.messages.last.content.write(message.response ?? '');
           emit(
             OllamaSuccess(
-              model: currentState.model,
-              messages: currentState.messages,
+              model: newState.model,
+              messages: newState.messages,
             ),
           );
         }, onError: (Object error, StackTrace stackTrace) {

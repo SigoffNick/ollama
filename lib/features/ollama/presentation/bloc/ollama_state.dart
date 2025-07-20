@@ -17,7 +17,7 @@ final class OllamaError extends OllamaState {
 
 final class OllamaSuccess extends OllamaState {
   final OllamaModel model;
-  final List<StringBuffer> messages;
+  final List<Message> messages;
 
   OllamaSuccess({
     required this.model,
@@ -26,7 +26,7 @@ final class OllamaSuccess extends OllamaState {
 
   OllamaSuccess copyWith({
     OllamaModel? model,
-    List<StringBuffer>? messages,
+    List<Message>? messages,
   }) {
     return OllamaSuccess(
       model: model ?? this.model,

@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'ollama_chat_message_model.dart';
-
 part 'ollama_completion_chunk_model.freezed.dart';
 
 part 'ollama_completion_chunk_model.g.dart';
@@ -10,8 +8,10 @@ part 'ollama_completion_chunk_model.g.dart';
 abstract class OllamaCompletionChunkModel with _$OllamaCompletionChunkModel {
   const factory OllamaCompletionChunkModel({
     required String model,
-    required DateTime createdAt,
-    OllamaChatMessageModel? message,
+    @JsonKey(name: 'created_at')
+    required String createdAt,
+    String? response,
+    bool? done,
   }) = _OllamaCompletionChunkModel;
 
   factory OllamaCompletionChunkModel.fromJson(Map<String, dynamic> json) =>

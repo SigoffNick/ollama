@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import '../../domain/payload/export_payloads.dart';
@@ -14,9 +15,9 @@ class OllamaRepositoryImpl implements OllamaRepository {
   }) : _ollamaRemoteDataSource = ollamaRemoteDataSource;
 
   @override
-  Stream<OllamaCompletionChunkModel> generateAnswer({
+  Future<Stream<OllamaCompletionChunkModel>> generateAnswer({
     required GenerateAnswerPayload payload,
-  }) async* {
+  }) async {
     final Stream<dynamic> stream = await _ollamaRemoteDataSource.generateAnswer(
       request: GenerateAnswerRequest(
         prompt: payload.prompt,
@@ -24,9 +25,12 @@ class OllamaRepositoryImpl implements OllamaRepository {
       ),
     );
 
-    await for (final String chunk in stream.transform(utf8.decoder)) {
-      final Map<String, dynamic> json = jsonDecode(chunk);
-      yield OllamaCompletionChunkModel.fromJson(json);
-    }
+    return stream.asyncExpand(
+      (dynamic data) async* {
+        final String chunk = utf8.decode(data);
+        final Map<String, dynamic> json = jsonDecode(chunk);
+        yield OllamaCompletionChunkModel.fromJson(json);
+      },
+    );
   }
 }
