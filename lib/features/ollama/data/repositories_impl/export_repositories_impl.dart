@@ -1,1 +1,1 @@
-export 'olama_repository_impl.dart';
+export 'ollama_repository_impl.dart';

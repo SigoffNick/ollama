@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/enum/export_enums.dart';
+import '../../data/model/ollama_completion_chunk_model.dart';
 import '../../domain/payload/export_payloads.dart';
 import '../../domain/use_case/export_use_cases.dart';
 
@@ -20,6 +21,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
         super(
           OllamaSuccess(
             model: OllamaModel.llama3dot1latest,
+            messages: <StringBuffer>[],
           ),
         ) {
     on<GenerateAnswerEvent>(_onGenerateAnswer);
@@ -33,12 +35,30 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
     if (state is OllamaSuccess) {
       final OllamaSuccess currentState = state as OllamaSuccess;
       try {
-        await _generateAnswerUseCase.execute(
+        final Stream<OllamaCompletionChunkModel> messageStream =
+            _generateAnswerUseCase.execute(
           GenerateAnswerPayload(
             prompt: event.question,
             model: currentState.model,
           ),
         );
+
+        if (currentState.messages.isEmpty) {
+          currentState.messages.add(StringBuffer());
+        }
+
+        await emit.onEach(messageStream,
+            onData: (OllamaCompletionChunkModel message) {
+          currentState.messages.last.write(message.message?.content ?? '');
+          emit(
+            OllamaSuccess(
+              model: currentState.model,
+              messages: currentState.messages,
+            ),
+          );
+        }, onError: (Object error, StackTrace stackTrace) {
+          print('Error: $error');
+        });
       } catch (e) {
         print(1);
       }

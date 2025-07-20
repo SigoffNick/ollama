@@ -56,21 +56,21 @@ final class AppDI {
     );
 
     locator.registerLazySingleton<OlamaRemoteDataSource>(
-      () => OlamaRemoteDataSourceImpl(
+      () => OllamaRemoteDataSourceImpl(
         apiProvider: locator<ApiProvider>(),
         appConfig: locator<AppConfig>(),
       ),
     );
 
-    locator.registerLazySingleton<OlamaRepository>(
-      () => OlamaRepositoryImpl(
-        olamaRemoteDataSource: locator<OlamaRemoteDataSource>(),
+    locator.registerLazySingleton<OllamaRepository>(
+      () => OllamaRepositoryImpl(
+        ollamaRemoteDataSource: locator<OlamaRemoteDataSource>(),
       ),
     );
 
     locator.registerLazySingleton<GenerateAnswerUseCase>(
       () => GenerateAnswerUseCase(
-        olamaRepository: locator<OlamaRepository>(),
+        olamaRepository: locator<OllamaRepository>(),
       ),
     );
   }

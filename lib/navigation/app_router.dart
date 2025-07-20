@@ -10,7 +10,7 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => <AutoRoute>[
         AutoRoute(
-          page: ollama_agentRoute.page,
+          page: OllamaRoute.page,
           initial: true,
         )
       ];

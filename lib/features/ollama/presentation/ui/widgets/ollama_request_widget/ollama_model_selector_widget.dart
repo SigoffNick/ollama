@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/enum/export_enums.dart';
 import '../../../bloc/ollama_bloc.dart';
 
-class ModelSelectorWidget extends StatelessWidget {
-  const ModelSelectorWidget({super.key});
+class OllamaModelSelectorWidget extends StatelessWidget {
+  const OllamaModelSelectorWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

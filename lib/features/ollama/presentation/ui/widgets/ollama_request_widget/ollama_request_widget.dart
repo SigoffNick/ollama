@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/ollama_bloc.dart';
-import 'model_selector_widget.dart';
+import 'ollama_model_selector_widget.dart';
 
-class OlamaRequestWidget extends StatefulWidget {
-  const OlamaRequestWidget({super.key});
+class OllamaRequestWidget extends StatefulWidget {
+  const OllamaRequestWidget({super.key});
 
   @override
-  State<OlamaRequestWidget> createState() => _OlamaRequestWidgetState();
+  State<OllamaRequestWidget> createState() => _OllamaRequestWidgetState();
 }
 
-class _OlamaRequestWidgetState extends State<OlamaRequestWidget> {
+class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
   late final TextEditingController _requestController;
 
   @override
@@ -60,10 +60,14 @@ class _OlamaRequestWidgetState extends State<OlamaRequestWidget> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [
-                const Expanded(
-                  child: ModelSelectorWidget(),
-                ),
+              spacing: 8.0,
+              children: <Widget>[
+                // const Expanded(
+                //   child: SizedBox(
+                //     height: 48.0,
+                //     child: OllamaModelSelectorWidget(),
+                //   ),
+                // ),
                 ElevatedButton(
                   onPressed: () => context.read<OllamaBloc>().add(
                         GenerateAnswerEvent(

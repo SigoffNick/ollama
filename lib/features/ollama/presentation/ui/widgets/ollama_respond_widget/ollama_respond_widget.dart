@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OlamaRespondWidget extends StatelessWidget {
-  const OlamaRespondWidget({super.key});
+class OllamaRespondWidget extends StatelessWidget {
+  const OllamaRespondWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

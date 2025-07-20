@@ -27,9 +27,9 @@ dependencies:
 
   #HTTP requests
   dio: ^5.8.0+1
-  
-  #Models
-  ollama: ^1.0.4
+
+  #UI dependencies
+  bubble: ^1.2.1
 
   #JSON serialization
   freezed: ^3.1.0

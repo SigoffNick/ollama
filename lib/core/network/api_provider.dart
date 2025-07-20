@@ -13,129 +13,115 @@ class ApiProvider {
   })  : _dio = dio,
         _errorHandler = errorHandler;
 
-  Future<T> get<T>(
+  Future<T> get<T, V>(
     ApiRequest query, {
-    required Parser<T> parser,
+    required Parser<T, V> parser,
     Map<String, dynamic>? headers,
-    bool isTokenRequired = true,
+    ResponseType responseType = ResponseType.json,
   }) async {
     try {
-      return _safeRequest<T>(
-        request: _dio.get(
-          query.path,
-          queryParameters: query.params,
-          options: Options(
-            headers: headers,
-          ),
+      return parser((await _dio.get(
+        query.path,
+        data: query.getData,
+        queryParameters: query.params,
+        options: Options(
+          headers: headers,
+          responseType: responseType,
         ),
-        parser: parser,
-      );
+      ))
+          .data as V);
     } on DioException catch (e) {
       await _errorHandler.handleError(e);
     }
   }
 
-  Future<T> post<T>(
+  Future<T> post<T, V>(
     ApiRequest query, {
-    required Parser<T> parser,
+    required Parser<T, V> parser,
     Map<String, dynamic>? headers,
-    bool isTokenRequired = true,
+    ResponseType responseType = ResponseType.json,
   }) async {
     try {
-      return _safeRequest<T>(
-        request: _dio.post(
-          query.path,
-          data: query.getData,
-          queryParameters: query.params,
-          options: Options(
-            headers: headers,
-          ),
+      return parser((await _dio.post(
+        query.path,
+        data: query.getData,
+        queryParameters: query.params,
+        options: Options(
+          headers: headers,
+          responseType: responseType,
         ),
-        parser: parser,
-      );
+      ))
+          .data);
     } on DioException catch (e) {
       await _errorHandler.handleError(e);
     }
   }
 
-  Future<T> put<T>(
+  Future<T> put<T, V>(
     ApiRequest query, {
-    required Parser<T> parser,
+    required Parser<T, V> parser,
     Map<String, dynamic>? headers,
-    bool isTokenRequired = true,
+    ResponseType responseType = ResponseType.json,
   }) async {
     try {
-      return _safeRequest<T>(
-        request: _dio.put(
-          query.path,
-          data: query.body,
-          queryParameters: query.params,
-          options: Options(
-            headers: headers,
-          ),
+      return parser((await _dio.put(
+        query.path,
+        data: query.getData,
+        queryParameters: query.params,
+        options: Options(
+          headers: headers,
+          responseType: responseType,
         ),
-        parser: parser,
-      );
+      ))
+          .data as V);
     } on DioException catch (e) {
       await _errorHandler.handleError(e);
     }
   }
 
-  Future<T> patch<T>(
+  Future<T> patch<T, V>(
     ApiRequest query, {
-    required Parser<T> parser,
+    required Parser<T, V> parser,
     Map<String, dynamic>? headers,
-    bool isTokenRequired = true,
+    ResponseType responseType = ResponseType.json,
   }) async {
     try {
-      return _safeRequest<T>(
-        request: _dio.patch(
-          query.path,
-          data: query.body,
-          queryParameters: query.params,
-          options: Options(
-            headers: headers,
-          ),
+      return parser((await _dio.patch(
+        query.path,
+        data: query.getData,
+        queryParameters: query.params,
+        options: Options(
+          headers: headers,
+          responseType: responseType,
         ),
-        parser: parser,
-      );
+      ))
+          .data as V);
     } on DioException catch (e) {
       await _errorHandler.handleError(e);
     }
   }
 
-  Future<T> delete<T>(
+  Future<T> delete<T, V>(
     ApiRequest query, {
-    required Parser<T> parser,
+    required Parser<T, V> parser,
     Map<String, dynamic>? headers,
-    bool isTokenRequired = true,
+    ResponseType responseType = ResponseType.json,
   }) async {
     try {
-      return _safeRequest<T>(
-        request: _dio.delete(
-          query.path,
-          data: query.body,
-          queryParameters: query.params,
-          options: Options(
-            headers: headers,
-          ),
+      return parser((await _dio.delete(
+        query.path,
+        data: query.getData,
+        queryParameters: query.params,
+        options: Options(
+          headers: headers,
+          responseType: responseType,
         ),
-        parser: parser,
-      );
+      ))
+          .data as V);
     } on DioException catch (e) {
       await _errorHandler.handleError(e);
     }
-  }
-
-  Future<T> _safeRequest<T>({
-    required Future<Response<dynamic>> request,
-    required Parser<T> parser,
-  }) async {
-    final Response<dynamic> response = await request;
-    return parser(response.data);
   }
 }
 
-typedef Parser<T> = T Function(Map<String, dynamic>);
-
-typedef ParserArr<T> = T Function(List<dynamic>);
+typedef Parser<T, V> = T Function(V);

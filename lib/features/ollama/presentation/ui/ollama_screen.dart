@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/olama_request_widget/olama_request_widget.dart';
-import 'widgets/olama_respond_widget/olama_respond_widget.dart';
+import 'widgets/ollama_request_widget/ollama_request_widget.dart';
+import 'widgets/ollama_respond_widget/ollama_respond_widget.dart';
 import 'widgets/text_area_widget/text_area_widget.dart';
 
 class OllamaScreen extends StatefulWidget {
@@ -31,11 +31,11 @@ class _OllamaScreenState extends State<OllamaScreen> {
               children: <Widget>[
                 Expanded(
                   flex: 3,
-                  child: OlamaRespondWidget(),
+                  child: OllamaRespondWidget(),
                 ),
                 Expanded(
                   flex: 2,
-                  child: OlamaRequestWidget(),
+                  child: OllamaRequestWidget(),
                 ),
               ],
             ),

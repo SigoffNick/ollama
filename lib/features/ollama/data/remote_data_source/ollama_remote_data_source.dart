@@ -1,7 +1,7 @@
 import '../request/requests_export.dart';
 
 abstract class OlamaRemoteDataSource {
-  Future<void> generateAnswer({
+  Future<Stream> generateAnswer({
     required GenerateAnswerRequest request,
   });
 }

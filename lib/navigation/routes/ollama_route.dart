@@ -17,7 +17,8 @@ class OllamaPage extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<OllamaBloc>(
       create: (_) => OllamaBloc(
-          generateAnswerUseCase: appLocator<GenerateAnswerUseCase>()),
+        generateAnswerUseCase: appLocator<GenerateAnswerUseCase>(),
+      ),
       child: this,
     );
   }
