@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ollama/features/ollama/presentation/ui/widgets/olama_request_widget/olama_request_widget.dart';
-import 'package:ollama/features/ollama/presentation/ui/widgets/olama_respond_widget/olama_respond_widget.dart';
-import 'package:ollama/features/ollama/presentation/ui/widgets/text_area_widget/text_area_widget.dart';
+
+import 'widgets/olama_request_widget/olama_request_widget.dart';
+import 'widgets/olama_respond_widget/olama_respond_widget.dart';
+import 'widgets/text_area_widget/text_area_widget.dart';
 
 class OllamaScreen extends StatefulWidget {
   const OllamaScreen({super.key});
@@ -18,7 +19,7 @@ class _OllamaScreenState extends State<OllamaScreen> {
         title: const Text('Olama chat'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Row(
+      body: const Row(
         children: [
           Expanded(
             flex: 3,
@@ -27,7 +28,7 @@ class _OllamaScreenState extends State<OllamaScreen> {
           Expanded(
             flex: 2,
             child: Column(
-              children: [
+              children: <Widget>[
                 Expanded(
                   flex: 3,
                   child: OlamaRespondWidget(),

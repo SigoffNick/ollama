@@ -1,8 +1,8 @@
-import 'package:ollama/core/app_config/app_config.dart';
-import 'package:ollama/features/ollama/data/request/generate_answer_request.dart';
+import '../../../../core/app_config/app_config.dart';
 
 import '../../../../core/network/api_provider.dart';
 import '../../../../core/network/api_request.dart';
+import '../request/requests_export.dart';
 import 'olama_remote_data_source.dart';
 
 class OlamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
@@ -21,8 +21,8 @@ class OlamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
   }) {
     return _apiProvider.get(
       ApiRequest(
-        endpoint: '${_appConfig.stgUrl}/generate -d',
-        body: <String, dynamic>{},
+        endpoint: '${_appConfig.stgUrl}/api/generate',
+        body: request.toJson(),
         params: null,
       ),
       parser: (Map<String, dynamic> json) {
@@ -31,3 +31,8 @@ class OlamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
     );
   }
 }
+
+// curl http://localhost:11434/api/generate -d '{
+// "model": "llama3",
+// "prompt": "What is Flutter?"
+// }'

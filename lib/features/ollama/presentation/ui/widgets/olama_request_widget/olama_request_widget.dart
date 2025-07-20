@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/ollama_bloc.dart';
+import 'model_selector_widget.dart';
 
 class OlamaRequestWidget extends StatefulWidget {
   const OlamaRequestWidget({super.key});
@@ -17,7 +21,7 @@ class _OlamaRequestWidgetState extends State<OlamaRequestWidget> {
   }
 
   @override
-  dispose() {
+  void dispose() {
     _requestController.dispose();
     super.dispose();
   }
@@ -31,7 +35,7 @@ class _OlamaRequestWidgetState extends State<OlamaRequestWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
-        children: [
+        children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8.0),
             child: const Text(
@@ -55,9 +59,20 @@ class _OlamaRequestWidgetState extends State<OlamaRequestWidget> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Отправить'),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: ModelSelectorWidget(),
+                ),
+                ElevatedButton(
+                  onPressed: () => context.read<OllamaBloc>().add(
+                        GenerateAnswerEvent(
+                          question: _requestController.text,
+                        ),
+                      ),
+                  child: const Text('Отправить'),
+                ),
+              ],
             ),
           ),
         ],

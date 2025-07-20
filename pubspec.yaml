@@ -1,4 +1,4 @@
-name: ollama
+name: ollama_agent
 description: "A new Flutter project."
 
 publish_to: 'none'
@@ -27,6 +27,9 @@ dependencies:
 
   #HTTP requests
   dio: ^5.8.0+1
+  
+  #Models
+  ollama: ^1.0.4
 
   #JSON serialization
   freezed: ^3.1.0
@@ -38,9 +41,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.8
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true

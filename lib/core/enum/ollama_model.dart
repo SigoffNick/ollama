@@ -1,7 +1,10 @@
 enum OllamaModel {
-  llama3dot1latest('Llama 3.1 Latest');
+  llama3dot1latest;
 
-  final String displayName;
-
-  const OllamaModel(this.displayName);
+  @override
+  String toString() {
+    return switch (this) {
+      llama3dot1latest => 'llama3.1:latest',
+    };
+  }
 }

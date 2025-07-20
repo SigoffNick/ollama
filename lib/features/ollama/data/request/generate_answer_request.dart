@@ -5,7 +5,7 @@ part 'generate_answer_request.freezed.dart';
 part 'generate_answer_request.g.dart';
 
 @freezed
-class GenerateAnswerRequest with _$GenerateAnswerRequest {
+abstract class GenerateAnswerRequest with _$GenerateAnswerRequest {
   const factory GenerateAnswerRequest({
     required String prompt,
     required String model,

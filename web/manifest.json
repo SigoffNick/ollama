@@ -1,6 +1,6 @@
 {
-    "name": "ollama",
-    "short_name": "ollama",
+    "name": "ollama_agent",
+    "short_name": "ollama_agent",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
