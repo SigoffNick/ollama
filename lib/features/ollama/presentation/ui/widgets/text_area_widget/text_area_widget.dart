@@ -32,37 +32,32 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text(
-              'Область для текста',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _textController,
-                maxLines: null,
-                expands: true,
-                decoration: const InputDecoration(
-                  hintText: 'Введите ваш текст здесь...',
-                  border: InputBorder.none,
-                ),
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    return BlocConsumer<TextAreaBloc, TextAreaState>(
+      listener: (BuildContext context, TextAreaState state) {
+        if (state is TextAreaSuccess) {
+          _textController.text = state.content.toString();
+        }
+      },
+      builder: (BuildContext context, TextAreaState state) {
+        return TextField(
+          controller: _textController,
+          maxLines: null,
+          expands: true,
+          decoration: InputDecoration(
+            hintText: 'Введите ваш текст здесь...',
+            filled: true,
+            fillColor: colorScheme.surfaceContainer,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
               ),
+              borderSide: BorderSide.none,
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -25,7 +25,9 @@ class OllamaPage extends StatelessWidget implements AutoRouteWrapper {
           ),
         ),
         BlocProvider<TextAreaBloc>(
-          create: (_) => TextAreaBloc(),
+          create: (_) => TextAreaBloc(
+            addAnswerToTextUseCase: appLocator<AddAnswerToTextUseCase>(),
+          ),
         ),
       ],
       child: this,

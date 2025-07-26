@@ -9,6 +9,10 @@ abstract class GenerateAnswerRequest with _$GenerateAnswerRequest {
   const factory GenerateAnswerRequest({
     required String prompt,
     required String model,
+    @JsonKey(
+      defaultValue: true,
+    )
+    bool? stream,
   }) = _GenerateAnswerRequest;
 
   factory GenerateAnswerRequest.fromJson(Map<String, dynamic> json) =>

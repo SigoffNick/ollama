@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import '../../../../core/app_config/app_config.dart';
 import '../../../../core/network/api_provider.dart';
 import '../../../../core/network/api_request.dart';
+import '../model/export_models.dart';
 import '../request/requests_export.dart';
 import 'ollama_remote_data_source.dart';
 
@@ -17,6 +18,7 @@ class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
     required AppConfig appConfig,
   })  : _apiProvider = apiProvider,
         _appConfig = appConfig;
+
   @override
   Future<Stream> generateAnswer({
     required GenerateAnswerRequest request,
@@ -30,6 +32,22 @@ class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
       responseType: ResponseType.stream,
       parser: (ResponseBody response) {
         return response.stream;
+      },
+    );
+  }
+
+  @override
+  Future<OllamaFullAnswerModel> addAnswerToText({
+    required GenerateAnswerRequest request,
+  }) {
+    return _apiProvider.post(
+      ApiRequest(
+        endpoint: '${_appConfig.stgUrl}/api/generate',
+        body: request.toJson(),
+        params: null,
+      ),
+      parser: (Map<String, dynamic> response) {
+        return OllamaFullAnswerModel.fromJson(response);
       },
     );
   }

@@ -27,18 +27,25 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Column(
+      spacing: 8.0,
       children: <Widget>[
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _requestController,
-              maxLines: null,
-              expands: true,
-              decoration: const InputDecoration(
-                hintText: 'Напишите ваш запрос...',
-                border: OutlineInputBorder(),
+          child: TextField(
+            controller: _requestController,
+            maxLines: null,
+            expands: true,
+            decoration: InputDecoration(
+              hintText: 'Напишите ваш запрос...',
+              filled: true,
+              fillColor: colorScheme.surfaceContainer,
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12),
+                ),
+                borderSide: BorderSide.none,
               ),
             ),
           ),

@@ -73,5 +73,11 @@ final class AppDI {
         olamaRepository: locator<OllamaRepository>(),
       ),
     );
+
+    locator.registerLazySingleton<AddAnswerToTextUseCase>(
+      () => AddAnswerToTextUseCase(
+        olamaRepository: locator<OllamaRepository>(),
+      ),
+    );
   }
 }

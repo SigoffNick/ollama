@@ -4,6 +4,7 @@ import 'dart:convert';
 import '../../domain/payload/export_payloads.dart';
 import '../../domain/repository/export_repositories.dart';
 import '../model/ollama_completion_chunk_model.dart';
+import '../model/ollama_full_answer_model.dart';
 import '../remote_data_source/export_remote_data_sources.dart';
 import '../request/requests_export.dart';
 
@@ -32,5 +33,22 @@ class OllamaRepositoryImpl implements OllamaRepository {
         yield OllamaCompletionChunkModel.fromJson(json);
       },
     );
+  }
+
+  @override
+  Future<String> addAnswerToText({
+    required AddAnswerToTextPayload payload,
+  }) async {
+    final OllamaFullAnswerModel response =
+        await _ollamaRemoteDataSource.addAnswerToText(
+      request: GenerateAnswerRequest(
+          prompt: payload.prompt.createPrompt(
+            text: payload.text,
+            answer: payload.answer,
+          ),
+          model: payload.model.toString(),
+          stream: false),
+    );
+    return response.response;
   }
 }
