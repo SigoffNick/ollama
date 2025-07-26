@@ -1,4 +1,3 @@
-
 class CompletionDetails {
   final Duration? totalDuration;
   final Duration? loadDuration;

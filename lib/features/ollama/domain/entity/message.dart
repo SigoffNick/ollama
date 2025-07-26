@@ -6,7 +6,6 @@ abstract class Message {
   });
 }
 
-
 class UserMessage extends Message {
   UserMessage({
     required StringBuffer content,

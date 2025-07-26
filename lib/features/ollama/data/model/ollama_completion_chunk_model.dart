@@ -8,8 +8,7 @@ part 'ollama_completion_chunk_model.g.dart';
 abstract class OllamaCompletionChunkModel with _$OllamaCompletionChunkModel {
   const factory OllamaCompletionChunkModel({
     required String model,
-    @JsonKey(name: 'created_at')
-    required String createdAt,
+    @JsonKey(name: 'created_at') required String createdAt,
     String? response,
     bool? done,
   }) = _OllamaCompletionChunkModel;
