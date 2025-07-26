@@ -34,6 +34,7 @@ class _OllamaScreenState extends State<OllamaScreen> {
                   flex: 3,
                   child: OllamaRespondWidget(),
                 ),
+                Divider(),
                 Expanded(
                   flex: 2,
                   child: OllamaRequestWidget(),

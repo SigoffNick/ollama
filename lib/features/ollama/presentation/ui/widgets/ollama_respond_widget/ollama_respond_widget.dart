@@ -22,6 +22,7 @@ class OllamaRespondWidget extends StatelessWidget {
           children: <Widget>[
             TabBar(
               controller: controller,
+              dividerColor: Colors.transparent,
               tabs: const <Widget>[
                 Tab(text: 'Answer'),
                 Tab(text: 'Thinking'),

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/enum/export_enums.dart';
+import '../../../../core/extension/list_messages_extension.dart';
 import '../../data/model/ollama_completion_chunk_model.dart';
 import '../../domain/entity/message.dart';
 import '../../domain/payload/export_payloads.dart';
@@ -34,11 +35,11 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
     Emitter<OllamaState> emit,
   ) async {
     if (state is OllamaSuccess) {
-      final OllamaSuccess currentState = state as OllamaSuccess;
+      OllamaSuccess currentState = state as OllamaSuccess;
 
       emit(
         currentState.copyWith(
-          messages: List<Message>.from(currentState.messages)
+          messages: currentState.messages
             ..add(
               UserMessage(
                 content: StringBuffer(event.question),
@@ -46,6 +47,21 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
             ),
         ),
       );
+
+      currentState = state as OllamaSuccess;
+
+      emit(
+        currentState.copyWith(
+          messages: currentState.messages
+            ..add(
+              AssistantLoadingMessage(
+                content: StringBuffer('Generating answer...'),
+              ),
+            ),
+        ),
+      );
+
+      currentState = state as OllamaSuccess;
 
       try {
         final Stream<OllamaCompletionChunkModel> messageStream =
@@ -56,9 +72,9 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
           ),
         );
 
-        final OllamaSuccess newState = state as OllamaSuccess;
-
-        newState.messages.add(
+        // Remove the last loading message and add a new assistant message to fill up with the response
+        currentState.messages.removeLast();
+        currentState.messages.add(
           AssistantMessage(
             content: StringBuffer(),
           ),
@@ -66,18 +82,46 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
 
         await emit.onEach(messageStream,
             onData: (OllamaCompletionChunkModel message) {
-          newState.messages.last.content.write(message.response ?? '');
+          currentState.messages.last.content.write(message.response ?? '');
           emit(
             OllamaSuccess(
-              model: newState.model,
-              messages: newState.messages,
+              model: currentState.model,
+              messages: currentState.messages,
             ),
           );
         }, onError: (Object error, StackTrace stackTrace) {
-          print('Error: $error');
+          if (currentState.messages.endsWithErrorMessage) {
+            return;
+          }
+
+          currentState.messages.removeLast();
+
+          currentState.messages.add(
+            ErrorMessage(
+              content: StringBuffer(error.toString()),
+            ),
+          );
+          emit(
+            OllamaSuccess(
+              model: currentState.model,
+              messages: currentState.messages,
+            ),
+          );
         });
       } catch (e) {
-        print(1);
+        currentState.messages.removeAfterLoadingMessage();
+
+        currentState.messages.add(
+          ErrorMessage(
+            content: StringBuffer(e.toString()),
+          ),
+        );
+        emit(
+          OllamaSuccess(
+            model: currentState.model,
+            messages: currentState.messages,
+          ),
+        );
       }
     }
   }

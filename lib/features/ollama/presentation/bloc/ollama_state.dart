@@ -33,12 +33,4 @@ final class OllamaSuccess extends OllamaState {
       messages: messages ?? this.messages,
     );
   }
-
-  bool get messagesEndsWithUserMessage {
-    if (messages.isEmpty) {
-      return false;
-    }
-
-    return messages.last is UserMessage;
-  }
 }
