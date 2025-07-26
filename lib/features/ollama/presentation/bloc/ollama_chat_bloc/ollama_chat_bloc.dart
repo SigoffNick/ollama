@@ -3,25 +3,25 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/enum/export_enums.dart';
-import '../../../../core/extension/list_messages_extension.dart';
-import '../../data/model/ollama_completion_chunk_model.dart';
-import '../../domain/entity/message.dart';
-import '../../domain/payload/export_payloads.dart';
-import '../../domain/use_case/export_use_cases.dart';
+import '../../../../../core/enum/export_enums.dart';
+import '../../../../../core/extension/list_messages_extension.dart';
+import '../../../data/model/ollama_completion_chunk_model.dart';
+import '../../../domain/entity/message.dart';
+import '../../../domain/payload/export_payloads.dart';
+import '../../../domain/use_case/export_use_cases.dart';
 
-part 'ollama_event.dart';
+part 'ollama_chat_event.dart';
 
-part 'ollama_state.dart';
+part 'ollama_chat_state.dart';
 
-class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
+class OllamaChatBloc extends Bloc<OllamaChatEvent, OllamaChatState> {
   final GenerateAnswerUseCase _generateAnswerUseCase;
 
-  OllamaBloc({
+  OllamaChatBloc({
     required GenerateAnswerUseCase generateAnswerUseCase,
   })  : _generateAnswerUseCase = generateAnswerUseCase,
         super(
-          OllamaSuccess(
+          OllamaChatSuccess(
             model: OllamaModel.llama3dot1latest,
             messages: <Message>[],
           ),
@@ -32,10 +32,10 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
 
   FutureOr<void> _onGenerateAnswer(
     GenerateAnswerEvent event,
-    Emitter<OllamaState> emit,
+    Emitter<OllamaChatState> emit,
   ) async {
-    if (state is OllamaSuccess) {
-      OllamaSuccess currentState = state as OllamaSuccess;
+    if (state is OllamaChatSuccess) {
+      OllamaChatSuccess currentState = state as OllamaChatSuccess;
 
       emit(
         currentState.copyWith(
@@ -48,7 +48,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
         ),
       );
 
-      currentState = state as OllamaSuccess;
+      currentState = state as OllamaChatSuccess;
 
       emit(
         currentState.copyWith(
@@ -61,7 +61,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
         ),
       );
 
-      currentState = state as OllamaSuccess;
+      currentState = state as OllamaChatSuccess;
 
       try {
         final Stream<OllamaCompletionChunkModel> messageStream =
@@ -84,7 +84,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
             onData: (OllamaCompletionChunkModel message) {
           currentState.messages.last.content.write(message.response ?? '');
           emit(
-            OllamaSuccess(
+            OllamaChatSuccess(
               model: currentState.model,
               messages: currentState.messages,
             ),
@@ -102,7 +102,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
             ),
           );
           emit(
-            OllamaSuccess(
+            OllamaChatSuccess(
               model: currentState.model,
               messages: currentState.messages,
             ),
@@ -117,7 +117,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
           ),
         );
         emit(
-          OllamaSuccess(
+          OllamaChatSuccess(
             model: currentState.model,
             messages: currentState.messages,
           ),
@@ -128,10 +128,10 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
 
   FutureOr<void> _onSelectModel(
     SelectModelEvent event,
-    Emitter<OllamaState> emit,
+    Emitter<OllamaChatState> emit,
   ) {
-    if (state is OllamaSuccess) {
-      final OllamaSuccess currentState = state as OllamaSuccess;
+    if (state is OllamaChatSuccess) {
+      final OllamaChatSuccess currentState = state as OllamaChatSuccess;
       emit(
         currentState.copyWith(
           model: event.model,

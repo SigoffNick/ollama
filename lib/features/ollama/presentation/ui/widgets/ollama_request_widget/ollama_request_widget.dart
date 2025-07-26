@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/ollama_bloc.dart';
+import '../../../bloc/ollama_chat_bloc/ollama_chat_bloc.dart';
 
 class OllamaRequestWidget extends StatefulWidget {
   const OllamaRequestWidget({super.key});
@@ -55,7 +55,7 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
               //   ),
               // ),
               ElevatedButton(
-                onPressed: () => context.read<OllamaBloc>().add(
+                onPressed: () => context.read<OllamaChatBloc>().add(
                       GenerateAnswerEvent(
                         question: _requestController.text,
                       ),

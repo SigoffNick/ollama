@@ -1,11 +1,11 @@
-part of 'ollama_bloc.dart';
+part of 'ollama_chat_bloc.dart';
 
 @immutable
-sealed class OllamaEvent {
-  const OllamaEvent();
+sealed class OllamaChatEvent {
+  const OllamaChatEvent();
 }
 
-class GenerateAnswerEvent extends OllamaEvent {
+class GenerateAnswerEvent extends OllamaChatEvent {
   final String question;
 
   const GenerateAnswerEvent({
@@ -13,7 +13,7 @@ class GenerateAnswerEvent extends OllamaEvent {
   });
 }
 
-class SelectModelEvent extends OllamaEvent {
+class SelectModelEvent extends OllamaChatEvent {
   final OllamaModel? model;
 
   const SelectModelEvent({

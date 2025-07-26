@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/text_area_bloc/text_area_bloc.dart';
 
 class TextAreaWidget extends StatefulWidget {
   const TextAreaWidget({super.key});
@@ -13,11 +16,16 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
+    final TextAreaState state = context.read<TextAreaBloc>().state;
+    if (state is TextAreaSuccess) {
+      _textController = TextEditingController(text: state.content.toString());
+    } else {
+      _textController = TextEditingController();
+    }
   }
 
   @override
-  dispose() {
+  void dispose() {
     _textController.dispose();
     super.dispose();
   }
