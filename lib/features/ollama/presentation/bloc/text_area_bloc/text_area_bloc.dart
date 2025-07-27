@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -14,7 +16,7 @@ class TextAreaBloc extends Bloc<TextAreaEvent, TextAreaState> {
   final GenerateAnswerAsStringUseCase _generateAnswerAsString;
   final Debouncer debouncer = Debouncer(
     delay: const Duration(
-      milliseconds: 1000,
+      milliseconds: 2000,
     ),
   );
 
@@ -23,15 +25,16 @@ class TextAreaBloc extends Bloc<TextAreaEvent, TextAreaState> {
   })  : _generateAnswerAsString = generateAnswerAsString,
         super(
           TextAreaSuccess(
-            content: StringBuffer(),
+            content: '',
           ),
         ) {
     on<AddAnswerToTextEvent>(_onAddAnswerToText);
-    on<AutoCompleteEvent>(_onAutoComplete);
+    on<ContentChangeEvent>(_onContentChange);
     on<SuggestAutoCompleteEvent>(_onSuggestAutocomplete);
+    on<AddAutoCompleteToContentEvent>(_onAddAutoCompleteToContent);
   }
 
-  Future<void> _onAddAnswerToText(
+  FutureOr<void> _onAddAnswerToText(
     AddAnswerToTextEvent event,
     Emitter<TextAreaState> emit,
   ) async {
@@ -42,7 +45,7 @@ class TextAreaBloc extends Bloc<TextAreaEvent, TextAreaState> {
         GenerateAnswerAsStringPayload(
           model: event.model,
           texts: <String>[
-            currentState.content.toString(),
+            currentState.content,
             event.answer,
           ],
         ),
@@ -50,16 +53,31 @@ class TextAreaBloc extends Bloc<TextAreaEvent, TextAreaState> {
 
       emit(
         currentState.copyWith(
-          content: StringBuffer(response),
+          content: response,
         ),
       );
     }
   }
 
-  Future<void> _onAutoComplete(
-    AutoCompleteEvent event,
+  FutureOr<void> _onContentChange(
+    ContentChangeEvent event,
     Emitter<TextAreaState> emit,
   ) async {
+    if (state is TextAreaSuccess) {
+      final TextAreaSuccess currentState = state as TextAreaSuccess;
+      String finalContent = event.text;
+      if (currentState.autoComplete != null) {
+        finalContent = finalContent.substring(
+          0,
+          finalContent.length - currentState.autoComplete!.length,
+        );
+      }
+      emit(
+        currentState.copyWith(
+          content: finalContent,
+        ),
+      );
+    }
     debouncer.run(
       () async {
         final String autoComplete = await _generateAnswerAsString.execute(
@@ -79,7 +97,7 @@ class TextAreaBloc extends Bloc<TextAreaEvent, TextAreaState> {
     );
   }
 
-  Future<void> _onSuggestAutocomplete(
+  FutureOr<void> _onSuggestAutocomplete(
     SuggestAutoCompleteEvent event,
     Emitter<TextAreaState> emit,
   ) async {
@@ -89,6 +107,22 @@ class TextAreaBloc extends Bloc<TextAreaEvent, TextAreaState> {
       emit(
         currentState.copyWith(
           autoComplete: event.suggestion,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onAddAutoCompleteToContent(
+    AddAutoCompleteToContentEvent event,
+    Emitter<TextAreaState> emit,
+  ) async {
+    if (state is TextAreaSuccess) {
+      final TextAreaSuccess currentSuccessState = state as TextAreaSuccess;
+
+      emit(
+        currentSuccessState.copyWith(
+          content:
+              currentSuccessState.content + currentSuccessState.autoComplete!,
         ),
       );
     }

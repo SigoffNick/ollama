@@ -15,11 +15,11 @@ class AddAnswerToTextEvent extends TextAreaEvent {
   });
 }
 
-class AutoCompleteEvent extends TextAreaEvent {
+class ContentChangeEvent extends TextAreaEvent {
   final String text;
   final OllamaModel model;
 
-  const AutoCompleteEvent({
+  const ContentChangeEvent({
     required this.text,
     required this.model,
   });
@@ -31,4 +31,8 @@ class SuggestAutoCompleteEvent extends TextAreaEvent {
   const SuggestAutoCompleteEvent({
     required this.suggestion,
   });
+}
+
+class AddAutoCompleteToContentEvent extends TextAreaEvent {
+  const AddAutoCompleteToContentEvent();
 }

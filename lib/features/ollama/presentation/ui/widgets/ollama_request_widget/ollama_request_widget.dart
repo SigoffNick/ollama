@@ -39,7 +39,7 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
             expands: true,
             textAlignVertical: TextAlignVertical.top,
             decoration: InputDecoration(
-              hintText: 'Напишите ваш запрос...',
+              hintText: 'Write your request here ...',
               filled: true,
               fillColor: colorScheme.surfaceContainer,
               border: const OutlineInputBorder(
@@ -68,7 +68,7 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
                         question: _requestController.text,
                       ),
                     ),
-                child: const Text('Отправить'),
+                child: const Text('Send'),
               ),
             ],
           ),

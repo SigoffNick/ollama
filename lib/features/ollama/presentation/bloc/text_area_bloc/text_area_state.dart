@@ -14,7 +14,7 @@ final class TextAreaError extends TextAreaState {
 }
 
 final class TextAreaSuccess extends TextAreaState {
-  final StringBuffer content;
+  final String content;
   final String? autoComplete;
 
   TextAreaSuccess({
@@ -23,12 +23,12 @@ final class TextAreaSuccess extends TextAreaState {
   });
 
   TextAreaSuccess copyWith({
-    StringBuffer? content,
+    String? content,
     String? autoComplete,
   }) {
     return TextAreaSuccess(
       content: content ?? this.content,
-      autoComplete: autoComplete ?? this.autoComplete,
+      autoComplete: autoComplete,
     );
   }
 }
