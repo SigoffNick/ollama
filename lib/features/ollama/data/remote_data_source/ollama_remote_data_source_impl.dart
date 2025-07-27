@@ -20,7 +20,7 @@ class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
         _appConfig = appConfig;
 
   @override
-  Future<Stream> generateAnswer({
+  Future<Stream> generateAnswerAsStream({
     required GenerateAnswerRequest request,
   }) async {
     return _apiProvider.post(
@@ -37,7 +37,7 @@ class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
   }
 
   @override
-  Future<OllamaFullAnswerModel> addAnswerToText({
+  Future<OllamaFullAnswerModel> generateAnswerAsString({
     required GenerateAnswerRequest request,
   }) {
     return _apiProvider.post(

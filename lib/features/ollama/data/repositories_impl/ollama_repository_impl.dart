@@ -16,10 +16,11 @@ class OllamaRepositoryImpl implements OllamaRepository {
   }) : _ollamaRemoteDataSource = ollamaRemoteDataSource;
 
   @override
-  Future<Stream<OllamaCompletionChunkModel>> generateAnswer({
-    required GenerateAnswerPayload payload,
+  Future<Stream<OllamaCompletionChunkModel>> generateAnswerAsStream({
+    required GenerateAnswerAsStreamPayload payload,
   }) async {
-    final Stream<dynamic> stream = await _ollamaRemoteDataSource.generateAnswer(
+    final Stream<dynamic> stream =
+        await _ollamaRemoteDataSource.generateAnswerAsStream(
       request: GenerateAnswerRequest(
         prompt: payload.prompt,
         model: payload.model.toString(),
@@ -36,18 +37,18 @@ class OllamaRepositoryImpl implements OllamaRepository {
   }
 
   @override
-  Future<String> addAnswerToText({
-    required AddAnswerToTextPayload payload,
+  Future<String> generateAnswerAsString({
+    required GenerateAnswerAsStringPayload payload,
   }) async {
     final OllamaFullAnswerModel response =
-        await _ollamaRemoteDataSource.addAnswerToText(
+        await _ollamaRemoteDataSource.generateAnswerAsString(
       request: GenerateAnswerRequest(
-          prompt: payload.prompt.createPrompt(
-            text: payload.text,
-            answer: payload.answer,
-          ),
-          model: payload.model.toString(),
-          stream: false),
+        prompt: payload.prompt.createPrompt(
+          texts: payload.texts,
+        ),
+        model: payload.model.toString(),
+        stream: false,
+      ),
     );
     return response.response;
   }

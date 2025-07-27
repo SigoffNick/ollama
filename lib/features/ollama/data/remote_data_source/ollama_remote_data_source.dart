@@ -2,11 +2,11 @@ import '../model/export_models.dart';
 import '../request/requests_export.dart';
 
 abstract class OlamaRemoteDataSource {
-  Future<Stream> generateAnswer({
+  Future<Stream> generateAnswerAsStream({
     required GenerateAnswerRequest request,
   });
 
-  Future<OllamaFullAnswerModel> addAnswerToText({
+  Future<OllamaFullAnswerModel> generateAnswerAsString({
     required GenerateAnswerRequest request,
   });
 }

@@ -21,12 +21,12 @@ class OllamaPage extends StatelessWidget implements AutoRouteWrapper {
       providers: <SingleChildWidget>[
         BlocProvider<OllamaChatBloc>(
           create: (_) => OllamaChatBloc(
-            generateAnswerUseCase: appLocator<GenerateAnswerUseCase>(),
+            generateAnswerUseCase: appLocator<GenerateAnswerAsStreamUseCase>(),
           ),
         ),
         BlocProvider<TextAreaBloc>(
           create: (_) => TextAreaBloc(
-            addAnswerToTextUseCase: appLocator<AddAnswerToTextUseCase>(),
+            generateAnswerAsString: appLocator<GenerateAnswerAsStringUseCase>(),
           ),
         ),
       ],

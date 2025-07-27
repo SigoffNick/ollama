@@ -3,20 +3,20 @@ import '../../payload/export_payloads.dart';
 import '../../repository/export_repositories.dart';
 import '../use_case.dart';
 
-class GenerateAnswerUseCase
+class GenerateAnswerAsStreamUseCase
     implements
-        FutureUseCase<GenerateAnswerPayload,
+        FutureUseCase<GenerateAnswerAsStreamPayload,
             Stream<OllamaCompletionChunkModel>> {
   final OllamaRepository _olamaRepository;
 
-  GenerateAnswerUseCase({
+  GenerateAnswerAsStreamUseCase({
     required OllamaRepository olamaRepository,
   }) : _olamaRepository = olamaRepository;
 
   @override
   Future<Stream<OllamaCompletionChunkModel>> execute(
-      GenerateAnswerPayload input) {
-    return _olamaRepository.generateAnswer(
+      GenerateAnswerAsStreamPayload input) {
+    return _olamaRepository.generateAnswerAsStream(
       payload: input,
     );
   }

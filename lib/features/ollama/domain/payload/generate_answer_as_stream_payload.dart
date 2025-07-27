@@ -1,10 +1,10 @@
 import '../../../../core/enum/export_enums.dart';
 
-class GenerateAnswerPayload {
+class GenerateAnswerAsStreamPayload {
   final String prompt;
   final OllamaModel model;
 
-  GenerateAnswerPayload({
+  GenerateAnswerAsStreamPayload({
     required this.prompt,
     required this.model,
   });

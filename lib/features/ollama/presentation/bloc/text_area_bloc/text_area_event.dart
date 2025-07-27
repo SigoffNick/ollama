@@ -14,3 +14,21 @@ class AddAnswerToTextEvent extends TextAreaEvent {
     required this.model,
   });
 }
+
+class AutoCompleteEvent extends TextAreaEvent {
+  final String text;
+  final OllamaModel model;
+
+  const AutoCompleteEvent({
+    required this.text,
+    required this.model,
+  });
+}
+
+class SuggestAutoCompleteEvent extends TextAreaEvent {
+  final String suggestion;
+
+  const SuggestAutoCompleteEvent({
+    required this.suggestion,
+  });
+}

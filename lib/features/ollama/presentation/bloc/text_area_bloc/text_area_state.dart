@@ -15,16 +15,20 @@ final class TextAreaError extends TextAreaState {
 
 final class TextAreaSuccess extends TextAreaState {
   final StringBuffer content;
+  final String? autoComplete;
 
   TextAreaSuccess({
     required this.content,
+    this.autoComplete,
   });
 
   TextAreaSuccess copyWith({
     StringBuffer? content,
+    String? autoComplete,
   }) {
     return TextAreaSuccess(
       content: content ?? this.content,
+      autoComplete: autoComplete ?? this.autoComplete,
     );
   }
 }

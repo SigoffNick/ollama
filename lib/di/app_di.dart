@@ -68,15 +68,15 @@ final class AppDI {
       ),
     );
 
-    locator.registerLazySingleton<GenerateAnswerUseCase>(
-      () => GenerateAnswerUseCase(
+    locator.registerLazySingleton<GenerateAnswerAsStreamUseCase>(
+      () => GenerateAnswerAsStreamUseCase(
         olamaRepository: locator<OllamaRepository>(),
       ),
     );
 
-    locator.registerLazySingleton<AddAnswerToTextUseCase>(
-      () => AddAnswerToTextUseCase(
-        olamaRepository: locator<OllamaRepository>(),
+    locator.registerLazySingleton<GenerateAnswerAsStringUseCase>(
+      () => GenerateAnswerAsStringUseCase(
+        ollamaRepository: locator<OllamaRepository>(),
       ),
     );
   }

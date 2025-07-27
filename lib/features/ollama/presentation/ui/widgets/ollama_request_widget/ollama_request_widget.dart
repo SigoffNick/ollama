@@ -37,6 +37,7 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
             controller: _requestController,
             maxLines: null,
             expands: true,
+            textAlignVertical: TextAlignVertical.top,
             decoration: InputDecoration(
               hintText: 'Напишите ваш запрос...',
               filled: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/ollama_chat_bloc/ollama_chat_bloc.dart';
 import '../../../bloc/text_area_bloc/text_area_bloc.dart';
 
 class TextAreaWidget extends StatefulWidget {
@@ -18,7 +19,9 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
     super.initState();
     final TextAreaState state = context.read<TextAreaBloc>().state;
     if (state is TextAreaSuccess) {
-      _textController = TextEditingController(text: state.content.toString());
+      _textController = TextEditingController(
+        text: state.content.toString(),
+      );
     } else {
       _textController = TextEditingController();
     }
@@ -34,17 +37,13 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-    return BlocConsumer<TextAreaBloc, TextAreaState>(
-      listener: (BuildContext context, TextAreaState state) {
-        if (state is TextAreaSuccess) {
-          _textController.text = state.content.toString();
-        }
-      },
+    return BlocBuilder<TextAreaBloc, TextAreaState>(
       builder: (BuildContext context, TextAreaState state) {
         return TextField(
           controller: _textController,
           maxLines: null,
           expands: true,
+          textAlignVertical: TextAlignVertical.top,
           decoration: InputDecoration(
             hintText: 'Введите ваш текст здесь...',
             filled: true,
@@ -56,6 +55,19 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
               borderSide: BorderSide.none,
             ),
           ),
+          onChanged: (String value) {
+            final OllamaChatState ollamaChatState =
+                context.read<OllamaChatBloc>().state;
+
+            if (ollamaChatState is OllamaChatSuccess) {
+              context.read<TextAreaBloc>().add(
+                    AutoCompleteEvent(
+                      text: value,
+                      model: ollamaChatState.model,
+                    ),
+                  );
+            }
+          },
         );
       },
     );

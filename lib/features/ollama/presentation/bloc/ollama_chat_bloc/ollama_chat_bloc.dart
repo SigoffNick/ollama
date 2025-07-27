@@ -15,10 +15,10 @@ part 'ollama_chat_event.dart';
 part 'ollama_chat_state.dart';
 
 class OllamaChatBloc extends Bloc<OllamaChatEvent, OllamaChatState> {
-  final GenerateAnswerUseCase _generateAnswerUseCase;
+  final GenerateAnswerAsStreamUseCase _generateAnswerUseCase;
 
   OllamaChatBloc({
-    required GenerateAnswerUseCase generateAnswerUseCase,
+    required GenerateAnswerAsStreamUseCase generateAnswerUseCase,
   })  : _generateAnswerUseCase = generateAnswerUseCase,
         super(
           OllamaChatSuccess(
@@ -66,7 +66,7 @@ class OllamaChatBloc extends Bloc<OllamaChatEvent, OllamaChatState> {
       try {
         final Stream<OllamaCompletionChunkModel> messageStream =
             await _generateAnswerUseCase.execute(
-          GenerateAnswerPayload(
+          GenerateAnswerAsStreamPayload(
             prompt: event.question,
             model: currentState.model,
           ),
