@@ -27,7 +27,6 @@ class OllamaChatBloc extends Bloc<OllamaChatEvent, OllamaChatState> {
           ),
         ) {
     on<GenerateAnswerEvent>(_onGenerateAnswer);
-    on<SelectModelEvent>(_onSelectModel);
   }
 
   FutureOr<void> _onGenerateAnswer(
@@ -123,20 +122,6 @@ class OllamaChatBloc extends Bloc<OllamaChatEvent, OllamaChatState> {
           ),
         );
       }
-    }
-  }
-
-  FutureOr<void> _onSelectModel(
-    SelectModelEvent event,
-    Emitter<OllamaChatState> emit,
-  ) {
-    if (state is OllamaChatSuccess) {
-      final OllamaChatSuccess currentState = state as OllamaChatSuccess;
-      emit(
-        currentState.copyWith(
-          model: event.model,
-        ),
-      );
     }
   }
 }

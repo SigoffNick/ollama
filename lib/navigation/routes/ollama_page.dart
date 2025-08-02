@@ -5,7 +5,7 @@ import 'package:nested/nested.dart';
 import '../../di/app_di.dart';
 
 import '../../features/ollama/domain/use_case/export_use_cases.dart';
-import '../../features/ollama/presentation/bloc/ollama_response_bloc/ollama_response_bloc.dart';
+import '../../features/ollama/presentation/bloc/ollama_bloc/ollama_bloc.dart';
 import '../../features/ollama/presentation/bloc/text_area_bloc/text_area_bloc.dart';
 import '../../features/ollama/presentation/ui/ollama_screen.dart';
 
@@ -19,8 +19,8 @@ class OllamaPage extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: <SingleChildWidget>[
-        BlocProvider<OllamaResponseBloc>(
-          create: (_) => OllamaResponseBloc(
+        BlocProvider<OllamaBloc>(
+          create: (_) => OllamaBloc(
             generateAnswerAsString: appLocator<GenerateAnswerAsStringUseCase>(),
           ),
         ),

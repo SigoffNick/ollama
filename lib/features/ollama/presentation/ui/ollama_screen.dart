@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/ollama_request_widget/ollama_request_widget.dart';
+import '../../../../core/prompt.dart';
+import 'widgets/ai_variant/ai_variant_response_widget.dart';
+import 'widgets/ollama_request_widget/request_requirements_text_field_widget.dart';
 import 'widgets/ollama_response_widget/ollama_response_widget.dart';
-import 'widgets/text_area_widget/text_area_widget.dart';
 
 class OllamaScreen extends StatefulWidget {
   const OllamaScreen({super.key});
@@ -12,12 +13,26 @@ class OllamaScreen extends StatefulWidget {
 }
 
 class _OllamaScreenState extends State<OllamaScreen> {
+  late final TextEditingController _requestController;
+
+  @override
+  void initState() {
+    super.initState();
+    _requestController = TextEditingController(text: request);
+  }
+
+  @override
+  void dispose() {
+    _requestController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -25,19 +40,23 @@ class _OllamaScreenState extends State<OllamaScreen> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      child: TextAreaWidget(),
+                      child: RequestRequirementsTextFieldWidget(
+                        requestController: _requestController,
+                      ),
                     ),
-                    Divider(),
-                    Expanded(
-                      child: OllamaRequestWidget(),
+                    const Divider(),
+                    const Expanded(
+                      child: AiVariantResponseWidget(),
                     ),
                   ],
                 ),
               ),
-              VerticalDivider(),
+              const VerticalDivider(),
               Expanded(
                 flex: 2,
-                child: OllamaResponseWidget(),
+                child: OllamaResponseWidget(
+                  requestController: _requestController,
+                ),
               ),
             ],
           ),

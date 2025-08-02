@@ -5,14 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/text_area_bloc/text_area_bloc.dart';
 import 'auto_complete_span_builder.dart';
 
-class TextAreaWidget extends StatefulWidget {
-  const TextAreaWidget({super.key});
+class AutoCompleteTextAreaWidget extends StatefulWidget {
+  const AutoCompleteTextAreaWidget({super.key});
 
   @override
-  State<TextAreaWidget> createState() => _TextAreaWidgetState();
+  State<AutoCompleteTextAreaWidget> createState() =>
+      _AutoCompleteTextAreaWidgetState();
 }
 
-class _TextAreaWidgetState extends State<TextAreaWidget> {
+class _AutoCompleteTextAreaWidgetState
+    extends State<AutoCompleteTextAreaWidget> {
   late final TextEditingController _textController;
 
   @override

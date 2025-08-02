@@ -1,4 +1,5 @@
 enum OllamaTextPrompt implements Comparable<OllamaTextPrompt> {
+  ask(prompt: ''),
   combine(
       prompt:
           'Combine the following texts into a single response. Make text consistent and coherent.'),
@@ -16,7 +17,9 @@ enum OllamaTextPrompt implements Comparable<OllamaTextPrompt> {
   String createPrompt({
     required List<String> texts,
   }) {
-    return '$prompt\nTexts:\n${texts.join('\n')}';
+    return this == ask
+        ? texts.join('\n')
+        : '$prompt\nTexts:\n${texts.join('\n')}';
   }
 
   @override

@@ -12,11 +12,3 @@ class GenerateAnswerEvent extends OllamaChatEvent {
     required this.question,
   });
 }
-
-class SelectModelEvent extends OllamaChatEvent {
-  final OllamaModel? model;
-
-  const SelectModelEvent({
-    required this.model,
-  });
-}

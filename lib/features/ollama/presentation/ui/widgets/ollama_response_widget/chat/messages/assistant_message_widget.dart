@@ -1,9 +1,6 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:html/dom.dart' hide Text;
-import 'package:html/parser.dart';
-import 'package:markdown/markdown.dart' hide Text, Document;
 
 import '../../../../../../domain/entity/message.dart';
 import '../../../../../bloc/ollama_chat_bloc/ollama_chat_bloc.dart';
@@ -32,7 +29,7 @@ class AssistantMessageWidget extends StatelessWidget {
             spacing: 8.0,
             children: <Widget>[
               SelectableText(
-                markdownToPlainText(message.content.toString()),
+                message.content.toString(),
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: colorScheme.onSurfaceVariant,
@@ -77,11 +74,5 @@ class AssistantMessageWidget extends StatelessWidget {
         );
       },
     );
-  }
-
-  String markdownToPlainText(String markdownSource) {
-    final String html = markdownToHtml(markdownSource);
-    final Document document = parse(html);
-    return document.body?.text ?? '';
   }
 }

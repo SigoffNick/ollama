@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class OllamaRequestWidget extends StatelessWidget {
+class RequestRequirementsTextFieldWidget extends StatelessWidget {
   final TextEditingController requestController;
 
-  const OllamaRequestWidget({
+  const RequestRequirementsTextFieldWidget({
     super.key,
     required this.requestController,
   });
@@ -18,7 +18,7 @@ class OllamaRequestWidget extends StatelessWidget {
       expands: true,
       textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
-        hintText: 'Write your request here ...',
+        hintText: 'Input your requirements here...',
         filled: true,
         fillColor: colorScheme.surfaceContainer,
         border: const OutlineInputBorder(
