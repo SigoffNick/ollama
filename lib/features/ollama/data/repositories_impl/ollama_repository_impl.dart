@@ -55,9 +55,7 @@ class OllamaRepositoryImpl implements OllamaRepository {
     final OllamaFullAnswerModel response =
         await _ollamaRemoteDataSource.generateAnswerAsString(
       request: GenerateAnswerRequest(
-        prompt: payload.prompt.createPrompt(
-          texts: payload.texts,
-        ),
+        prompt: payload.prompt.createPrompt(),
         model: payload.model.toString(),
         stream: false,
       ),

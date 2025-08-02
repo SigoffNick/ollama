@@ -6,11 +6,11 @@ sealed class OllamaEvent {
 }
 
 class GenerateAnswerEvent extends OllamaEvent {
-  final String question;
+  final String requirements;
   final OllamaModel model;
 
   const GenerateAnswerEvent({
-    required this.question,
+    required this.requirements,
     this.model = OllamaModel.llama3dot1latest,
   });
 }

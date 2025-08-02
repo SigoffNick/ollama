@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../../core/enum/export_enums.dart';
 import '../../../../../core/ollama/ollama_export.dart';
+import '../../../../../core/prompt/prompts_export.dart';
 import '../../../domain/payload/export_payloads.dart';
 import '../../../domain/use_case/export_use_cases.dart';
 
@@ -34,9 +35,9 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
       final String ollamaResponse = await _generateAnswerAsString.execute(
         GenerateAnswerAsStringPayload(
           model: event.model,
-          texts: <String>[
-            event.question,
-          ],
+          prompt: CreateServiceTaskPrompt.fromRequirements(
+            requirements: event.requirements,
+          ),
         ),
       );
 

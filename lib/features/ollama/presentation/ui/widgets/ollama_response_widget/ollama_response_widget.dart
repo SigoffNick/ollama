@@ -70,7 +70,7 @@ class OllamaResponseWidget extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () => context.read<OllamaBloc>().add(
                             GenerateAnswerEvent(
-                              question: requestController.text,
+                              requirements: requestController.text,
                             ),
                           ),
                       child: const Text('Check'),
