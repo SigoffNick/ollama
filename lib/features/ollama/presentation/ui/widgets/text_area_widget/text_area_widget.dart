@@ -2,7 +2,6 @@ import 'package:extended_text_field/extended_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/ollama_chat_bloc/ollama_chat_bloc.dart';
 import '../../../bloc/text_area_bloc/text_area_bloc.dart';
 import 'auto_complete_span_builder.dart';
 
@@ -65,7 +64,7 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
             colorScheme: colorScheme,
           ),
           decoration: InputDecoration(
-            hintText: 'Input your text here...',
+            hintText: 'Input your requirements here...',
             filled: true,
             fillColor: colorScheme.surfaceContainer,
             border: const OutlineInputBorder(
@@ -75,19 +74,6 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
               borderSide: BorderSide.none,
             ),
           ),
-          onChanged: (String value) {
-            final OllamaChatState ollamaChatState =
-                context.read<OllamaChatBloc>().state;
-
-            if (ollamaChatState is OllamaChatSuccess) {
-              context.read<TextAreaBloc>().add(
-                    ContentChangeEvent(
-                      text: value,
-                      model: ollamaChatState.model,
-                    ),
-                  );
-            }
-          },
         );
       },
     );

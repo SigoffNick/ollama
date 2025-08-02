@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import '../../domain/payload/export_payloads.dart';
 import '../../domain/repository/export_repositories.dart';
 import '../model/ollama_completion_chunk_model.dart';
@@ -30,8 +32,18 @@ class OllamaRepositoryImpl implements OllamaRepository {
     return stream.asyncExpand(
       (dynamic data) async* {
         final String chunk = utf8.decode(data);
-        final Map<String, dynamic> json = jsonDecode(chunk);
-        yield OllamaCompletionChunkModel.fromJson(json);
+        if (kIsWeb) {
+          final List<String> splitChunks = chunk.split('\n');
+          for (final String splitChunk in splitChunks) {
+            if (splitChunk.isNotEmpty) {
+              final Map<String, dynamic> json = jsonDecode(splitChunk);
+              yield OllamaCompletionChunkModel.fromJson(json);
+            }
+          }
+        } else {
+          final Map<String, dynamic> json = jsonDecode(chunk);
+          yield OllamaCompletionChunkModel.fromJson(json);
+        }
       },
     );
   }

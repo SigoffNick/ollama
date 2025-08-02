@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../navigation/app_router.dart';
 
-class OllamaRespondWidget extends StatelessWidget {
-  const OllamaRespondWidget({super.key});
+class OllamaResponseWidget extends StatelessWidget {
+  const OllamaResponseWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.tabBar(
       routes: const <PageRouteInfo>[
-        OllamaRespondTabRoute(),
-        OllamaThinkingTabRoute(),
+        OllamaProblemsResponseTabRoute(),
+        OllamaQuestionsResponseTabRoute(),
+        OllamaJsonResponseTabRoute(),
+        OllamaThinkingResponseTabRoute(),
       ],
       builder: (
         BuildContext context,
@@ -24,7 +26,9 @@ class OllamaRespondWidget extends StatelessWidget {
               controller: controller,
               dividerColor: Colors.transparent,
               tabs: const <Widget>[
-                Tab(text: 'Answer'),
+                Tab(text: 'Problems'),
+                Tab(text: 'Questions'),
+                Tab(text: 'Json'),
                 Tab(text: 'Thinking'),
               ],
             ),

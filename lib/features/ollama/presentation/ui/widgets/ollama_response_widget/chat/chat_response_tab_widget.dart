@@ -9,14 +9,14 @@ import 'messages/assistant_message_widget.dart';
 import 'messages/error_message_widget.dart';
 import 'messages/user_message_widget.dart';
 
-class RespondTabWidget extends StatefulWidget {
-  const RespondTabWidget({super.key});
+class ChatResponseTabWidget extends StatefulWidget {
+  const ChatResponseTabWidget({super.key});
 
   @override
-  State<RespondTabWidget> createState() => _RespondTabWidgetState();
+  State<ChatResponseTabWidget> createState() => _ChatResponseTabWidgetState();
 }
 
-class _RespondTabWidgetState extends State<RespondTabWidget> {
+class _ChatResponseTabWidgetState extends State<ChatResponseTabWidget> {
   late final ScrollController _scrollController;
   bool _isUserScrolling = false;
 

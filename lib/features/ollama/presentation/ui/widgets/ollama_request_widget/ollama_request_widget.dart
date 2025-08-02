@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/prompt.dart';
 import '../../../bloc/ollama_chat_bloc/ollama_chat_bloc.dart';
+import '../../../bloc/ollama_response_bloc/ollama_response_bloc.dart';
 
 class OllamaRequestWidget extends StatefulWidget {
   const OllamaRequestWidget({super.key});
@@ -16,7 +18,7 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
   @override
   void initState() {
     super.initState();
-    _requestController = TextEditingController();
+    _requestController = TextEditingController(text: request);
   }
 
   @override
@@ -56,19 +58,23 @@ class _OllamaRequestWidgetState extends State<OllamaRequestWidget> {
           child: Row(
             spacing: 8.0,
             children: <Widget>[
-              // const Expanded(
-              //   child: SizedBox(
-              //     height: 48.0,
-              //     child: OllamaModelSelectorWidget(),
-              //   ),
-              // ),
               ElevatedButton(
-                onPressed: () => context.read<OllamaChatBloc>().add(
-                      GenerateAnswerEvent(
-                        question: _requestController.text,
-                      ),
-                    ),
-                child: const Text('Send'),
+                onPressed: () {},
+                //=> context.read<OllamaChatBloc>().add(
+                //GenerateAnswerEvent(
+                //question: _requestController.text,
+                //),
+                //),
+                child: const Text('Apply Response'),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                //=> context.read<OllamaBloc>().add(
+                //GenerateAnswerEvent(
+                // question: _requestController.text,
+                // ),
+                // ),
+                child: const Text('Check'),
               ),
             ],
           ),

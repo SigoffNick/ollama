@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ThinkingTabWidget extends StatelessWidget {
-  const ThinkingTabWidget({super.key});
+class JsonResponseTabWidget extends StatelessWidget {
+  const JsonResponseTabWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

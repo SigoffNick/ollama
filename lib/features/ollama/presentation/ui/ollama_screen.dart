@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/ollama_request_widget/ollama_request_widget.dart';
-import 'widgets/ollama_respond_widget/ollama_respond_widget.dart';
+import 'widgets/ollama_response_widget/ollama_response_widget.dart';
 import 'widgets/text_area_widget/text_area_widget.dart';
 
 class OllamaScreen extends StatefulWidget {
@@ -22,24 +22,22 @@ class _OllamaScreenState extends State<OllamaScreen> {
             children: <Widget>[
               Expanded(
                 flex: 3,
-                child: TextAreaWidget(),
-              ),
-              VerticalDivider(),
-              Expanded(
-                flex: 2,
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      flex: 3,
-                      child: OllamaRespondWidget(),
+                      child: TextAreaWidget(),
                     ),
                     Divider(),
                     Expanded(
-                      flex: 2,
                       child: OllamaRequestWidget(),
                     ),
                   ],
                 ),
+              ),
+              VerticalDivider(),
+              Expanded(
+                flex: 2,
+                child: OllamaResponseWidget(),
               ),
             ],
           ),

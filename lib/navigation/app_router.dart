@@ -14,11 +14,17 @@ class AppRouter extends RootStackRouter {
           initial: true,
           children: <AutoRoute>[
             AutoRoute(
-              page: OllamaRespondTabRoute.page,
+              page: OllamaProblemsResponseTabRoute.page,
               initial: true,
             ),
             AutoRoute(
-              page: OllamaThinkingTabRoute.page,
+              page: OllamaQuestionsResponseTabRoute.page,
+            ),
+            AutoRoute(
+              page: OllamaThinkingResponseTabRoute.page,
+            ),
+            AutoRoute(
+              page: OllamaJsonResponseTabRoute.page,
             ),
           ],
         )
