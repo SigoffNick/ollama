@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../core/app_logger/app_logger.dart';
 import '../../../../../core/enum/export_enums.dart';
 import '../../../../../core/ollama/ollama_export.dart';
 import '../../../../../core/prompt/prompts_export.dart';
@@ -21,6 +23,7 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
   })  : _generateAnswerAsString = generateAnswerAsString,
         super(OllamaInitial()) {
     on<GenerateAnswerEvent>(_onGenerateAnswer);
+    on<CopyContentEvent>(_onCopyContent);
   }
 
   FutureOr<void> _onGenerateAnswer(
@@ -32,6 +35,9 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
     );
 
     try {
+      throw UnimplementedError(
+        'OllamaBloc: _onGenerateAnswer is not implemented yet.',
+      );
       final String ollamaResponse = await _generateAnswerAsString.execute(
         GenerateAnswerAsStringPayload(
           model: event.model,
@@ -48,6 +54,21 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
       );
     } catch (e) {
       emit(OllamaError(errorMessage: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onCopyContent(
+    CopyContentEvent event,
+    Emitter<OllamaState> emit,
+  ) async {
+    try {
+      await Clipboard.setData(
+        ClipboardData(text: event.content),
+      );
+    } catch (e) {
+      AppLogger().wtf(
+        'Error copying content to clipboard: $e',
+      );
     }
   }
 }

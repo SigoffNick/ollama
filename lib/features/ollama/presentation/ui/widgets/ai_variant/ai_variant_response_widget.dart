@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import '../../../../../../core/ollama/ollama_response.dart';
 import '../../../bloc/ollama_bloc/ollama_bloc.dart';
+import '../common_containers/error_container_widget.dart';
+import '../common_containers/initial_container_widget.dart';
+import '../common_containers/loading_container_widget.dart';
 
 class AiVariantResponseWidget extends StatelessWidget {
   const AiVariantResponseWidget({super.key});
@@ -17,12 +20,8 @@ class AiVariantResponseWidget extends StatelessWidget {
         OllamaState state,
       ) {
         return switch (state) {
-          OllamaInitial() => const Center(
-              child: Text('Initial State'),
-            ),
-          OllamaLoading() => const Center(
-              child: CircularProgressIndicator(),
-            ),
+          OllamaInitial() => const InitialContainerWidget(),
+          OllamaLoading() => const LoadingContainerWidget(),
           OllamaLoaded(ollamaResponse: final OllamaResponse ollamaResponse) =>
             MarkdownWidget(
               data: ollamaResponse.aiVariant,
@@ -33,8 +32,9 @@ class AiVariantResponseWidget extends StatelessWidget {
                 configs: <WidgetConfig>[const PreConfig()],
               ),
             ),
-          OllamaError(errorMessage: final String errorMessage) => Center(
-              child: Text('Error: $errorMessage'),
+          OllamaError(errorMessage: final String errorMessage) =>
+            ErrorContainerWidget(
+              error: errorMessage,
             ),
         };
       },

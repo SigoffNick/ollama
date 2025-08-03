@@ -5,6 +5,7 @@ import 'package:flutter_json_viewer/flutter_json_viewer.dart';
 import '../../../../../../../core/ollama/ollama_export.dart';
 import '../../../../../data/model/export_models.dart';
 import '../../../../bloc/ollama_bloc/ollama_bloc.dart';
+import '../../common_containers/common_containers_export.dart';
 
 class ProblemsResponseTabWidget extends StatelessWidget {
   const ProblemsResponseTabWidget({super.key});
@@ -19,16 +20,12 @@ class ProblemsResponseTabWidget extends StatelessWidget {
         OllamaState state,
       ) {
         return switch (state) {
-          OllamaInitial() => const Center(
-              child: Text('Initial State'),
-            ),
-          OllamaLoading() => const Center(
-              child: CircularProgressIndicator(),
-            ),
+          OllamaInitial() => const InitialContainerWidget(),
+          OllamaLoading() => const LoadingContainerWidget(),
           OllamaLoaded(ollamaResponse: final OllamaResponse ollamaResponse) =>
             ollamaResponse.problems.isEmpty
-                ? const Center(
-                    child: Text('No problems found'),
+                ? const NoDataContainerWidget(
+                    message: 'No problems found',
                   )
                 : ListView.builder(
                     itemCount: ollamaResponse.problems.length,
@@ -73,8 +70,9 @@ class ProblemsResponseTabWidget extends StatelessWidget {
                       );
                     },
                   ),
-          OllamaError(errorMessage: final String errorMessage) => Center(
-              child: Text('Error: $errorMessage'),
+          OllamaError(errorMessage: final String errorMessage) =>
+            ErrorContainerWidget(
+              error: errorMessage,
             ),
         };
       },

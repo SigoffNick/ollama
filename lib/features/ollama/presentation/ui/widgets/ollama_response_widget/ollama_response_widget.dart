@@ -42,7 +42,12 @@ class OllamaResponseWidget extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: child,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                ),
+                child: child,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -58,11 +63,6 @@ class OllamaResponseWidget extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
-                      //=> context.read<OllamaChatBloc>().add(
-                      //GenerateAnswerEvent(
-                      //question: _requestController.text,
-                      //),
-                      //),
                       child: const Text('Apply Response'),
                     ),
                   ),

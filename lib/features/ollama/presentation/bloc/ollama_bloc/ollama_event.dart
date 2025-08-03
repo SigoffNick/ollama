@@ -14,3 +14,11 @@ class GenerateAnswerEvent extends OllamaEvent {
     this.model = OllamaModel.llama3dot1latest,
   });
 }
+
+class CopyContentEvent extends OllamaEvent {
+  final String content;
+
+  const CopyContentEvent({
+    required this.content,
+  });
+}
