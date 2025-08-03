@@ -35,9 +35,6 @@ class OllamaBloc extends Bloc<OllamaEvent, OllamaState> {
     );
 
     try {
-      throw UnimplementedError(
-        'OllamaBloc: _onGenerateAnswer is not implemented yet.',
-      );
       final String ollamaResponse = await _generateAnswerAsString.execute(
         GenerateAnswerAsStringPayload(
           model: event.model,

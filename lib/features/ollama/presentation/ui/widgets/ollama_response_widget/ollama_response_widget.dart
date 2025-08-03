@@ -15,6 +15,8 @@ class OllamaResponseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return AutoTabsRouter.tabBar(
       routes: const <PageRouteInfo>[
         OllamaProblemsResponseTabRoute(),
@@ -49,7 +51,11 @@ class OllamaResponseWidget extends StatelessWidget {
                 child: child,
               ),
             ),
-            Padding(
+            Container(
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 spacing: 8.0,
@@ -61,13 +67,27 @@ class OllamaResponseWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: ElevatedButton(
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                       onPressed: () {},
                       child: const Text('Apply Response'),
                     ),
                   ),
                   Expanded(
-                    child: ElevatedButton(
+                    child: FilledButton(
+                      style: ButtonStyle(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                       onPressed: () => context.read<OllamaBloc>().add(
                             GenerateAnswerEvent(
                               requirements: requestController.text,
