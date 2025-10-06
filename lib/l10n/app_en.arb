@@ -1,0 +1,125 @@
+{
+  "@@locale": "en",
+  "appTitle": "AI Chat",
+  "problems": "Problems",
+  "questions": "Questions",
+  "json": "Json",
+  "thinking": "Thinking",
+  "copyToClipboard": "Copy to clipboard",
+  "jsonCopied": "JSON copied to clipboard",
+  "operationJsonCopied": "Operation {number} JSON copied to clipboard",
+  "@operationJsonCopied": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "failedToCopyJson": "Failed to copy JSON",
+  "noProblemsFound": "No problems found",
+  "initialState": "Initial State",
+  "loading": "Loading...",
+  "error": "Error: {message}",
+  "@error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "problemNumber": "Problem {number}",
+  "@problemNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "operationNumber": "Operation {number}",
+  "@operationNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "responseTab": "Response",
+  "chatTab": "Chat",
+  "settingsTab": "Settings",
+  "historyTab": "History",
+  "send": "Send",
+  "typeMessage": "Type your message...",
+  "retry": "Retry",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "save": "Save",
+  "clear": "Clear",
+  "clearAll": "Clear All",
+  "confirm": "Confirm",
+  "yes": "Yes",
+  "no": "No",
+  "ok": "OK",
+  "close": "Close",
+  "back": "Back",
+  "next": "Next",
+  "previous": "Previous",
+  "search": "Search",
+  "filter": "Filter",
+  "sort": "Sort",
+  "refresh": "Refresh",
+  "share": "Share",
+  "export": "Export",
+  "import": "Import",
+  "settings": "Settings",
+  "about": "About",
+  "help": "Help",
+  "feedback": "Feedback",
+  "version": "Version",
+  "language": "Language",
+  "theme": "Theme",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+  "systemMode": "System Mode",
+  "networkError": "Network connection error",
+  "serverError": "Server error occurred",
+  "unknownError": "An unknown error occurred",
+  "connectionTimeout": "Connection timeout",
+  "requestCancelled": "Request was cancelled",
+  "noInternet": "No internet connection",
+  "tryAgain": "Try again",
+  "emptyState": "No data available",
+  "noResults": "No results found",
+  "searchResults": "Search results",
+  "recentChats": "Recent chats",
+  "newChat": "New chat",
+  "chatHistory": "Chat history",
+  "clearHistory": "Clear history",
+  "deleteChat": "Delete chat",
+  "renameChat": "Rename chat",
+  "copyMessage": "Copy message",
+  "regenerateResponse": "Regenerate response",
+  "stopGeneration": "Stop generation",
+  "model": "Model",
+  "selectModel": "Select model",
+  "temperature": "Temperature",
+  "maxTokens": "Max tokens",
+  "topP": "Top P",
+  "frequencyPenalty": "Frequency penalty",
+  "presencePenalty": "Presence penalty",
+  "systemPrompt": "System prompt",
+  "userMessage": "User message",
+  "assistantMessage": "Assistant message",
+  "timestamp": "Timestamp",
+  "tokens": "Tokens",
+  "cost": "Cost",
+  "duration": "Duration",
+  "processing": "Processing...",
+  "generating": "Generating response...",
+  "analyzing": "Analyzing...",
+  "completed": "Completed",
+  "failed": "Failed",
+  "cancelled": "Cancelled",
+  "paused": "Paused",
+  "resumed": "Resumed"
+}
