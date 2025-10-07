@@ -18,6 +18,7 @@ Future<void> mainCommon(Flavor flavor) async {
       },
     );
     Bloc.observer = AppBlocObserver();
+    AppLogger().info('App started in $flavor mode');
 
     runApp(const App());
   }, (Object error, StackTrace stack) {

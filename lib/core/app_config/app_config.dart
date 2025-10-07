@@ -1,7 +1,4 @@
-enum Flavor {
-  prod,
-  dev,
-}
+enum Flavor { prod, dev, stage }
 
 class AppConfig {
   final Flavor flavor;
@@ -22,6 +19,7 @@ class AppConfig {
     switch (flavor) {
       case Flavor.prod:
       case Flavor.dev:
+      case Flavor.stage:
         baseUrl = 'http://localhost:11434';
         stgUrl = 'http://localhost:11434';
         break;
