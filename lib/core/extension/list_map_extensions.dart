@@ -1,6 +1,6 @@
 import '../ollama/ollama_export.dart';
 
-extension LisrMapExtensions on List<Map<String, dynamic>> {
+extension ListMapExtensions on List<Map<String, dynamic>> {
   List<NoteModel> getNotes() {
     if (this is! List<Map<String, dynamic>>) {
       throw ArgumentError(
