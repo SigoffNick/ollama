@@ -9,7 +9,7 @@ abstract class OperationModel with _$OperationModel {
   const factory OperationModel({
     String? name,
     String? type,
-    String? metod,
+    @JsonKey(name: 'metod') String? method,
     String? path,
     String? variable,
     String? where,
