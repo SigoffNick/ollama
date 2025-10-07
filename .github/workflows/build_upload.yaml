@@ -35,3 +35,15 @@ jobs:
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
           cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+
+#  What Does This Workflow Do?
+#Trigger the Workflow (Lines 3-14):
+#  The workflow_dispatch event allows you to manually trigger this workflow from the GitHub Actions UI.
+#  An environment input is defined to let you specify which flavor (dev, stg, or prod) to build.
+#Define the Job (Lines 16-22):
+#  The build job runs on the latest macOS runner (required for iOS builds).
+#  Sets the environment for the workflow, defaulting to prod if the workflow is not triggered manually.
+#  Sets a DEPLOY_ENV variable with the same value as the environment (we’ll use this later).
+#Define the Steps (Lines 24-36):
+#  First, it checks out the repository code.
+#  Then, it sets up Flutter using the stable channel, with caching enabled for faster subsequent builds.
