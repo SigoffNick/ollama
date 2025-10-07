@@ -46,7 +46,7 @@ class AutoCompleteSpanBuilder extends SpecialTextSpanBuilder {
     SpecialTextGestureTapCallback? onTap,
     required int index,
   }) {
-    // TODO: implement createSpecialText
-    throw UnimplementedError();
+    // No special text supported in this builder.
+    return null;
   }
 }
