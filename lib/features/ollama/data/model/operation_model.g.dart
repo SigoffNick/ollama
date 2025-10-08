@@ -10,7 +10,7 @@ _OperationModel _$OperationModelFromJson(Map<String, dynamic> json) =>
     _OperationModel(
       name: json['name'] as String?,
       type: json['type'] as String?,
-      metod: json['metod'] as String?,
+      method: json['metod'] as String?,
       path: json['path'] as String?,
       variable: json['variable'] as String?,
       where: json['where'] as String?,
@@ -22,7 +22,7 @@ Map<String, dynamic> _$OperationModelToJson(_OperationModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.type,
-      'metod': instance.metod,
+      'metod': instance.method,
       'path': instance.path,
       'variable': instance.variable,
       'where': instance.where,

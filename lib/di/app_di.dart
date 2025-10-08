@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import '../core/app_config/app_config.dart';
 import '../core/app_events/app_event_bus.dart';
 import '../core/app_events/app_event_bus_interface.dart';
 import '../core/errors/error_handler.dart';
@@ -15,11 +14,7 @@ import '../navigation/app_router.dart';
 final GetIt appLocator = GetIt.instance;
 
 final class AppDI {
-  static void initDependencies(GetIt locator, Flavor flavor) {
-    locator.registerSingleton<AppConfig>(
-      AppConfig.fromFlavor(flavor),
-    );
-
+  static void initDependencies(GetIt locator) {
     locator.registerLazySingleton<AppEventBus>(
       AppEventBus.new,
     );
@@ -37,9 +32,7 @@ final class AppDI {
     locator.registerFactory(AppRouteObserver.new);
 
     locator.registerLazySingleton<DioConfig>(
-      () => DioConfig(
-        appConfig: locator<AppConfig>(),
-      ),
+      DioConfig.new,
     );
 
     locator.registerLazySingleton<ErrorHandler>(
@@ -58,7 +51,6 @@ final class AppDI {
     locator.registerLazySingleton<OlamaRemoteDataSource>(
       () => OllamaRemoteDataSourceImpl(
         apiProvider: locator<ApiProvider>(),
-        appConfig: locator<AppConfig>(),
       ),
     );
 

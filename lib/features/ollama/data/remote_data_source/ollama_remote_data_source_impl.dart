@@ -2,22 +2,19 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 
-import '../../../../core/app_config/app_config.dart';
 import '../../../../core/network/api_provider.dart';
 import '../../../../core/network/api_request.dart';
+import '../../../../core/services/env.dart';
 import '../model/export_models.dart';
 import '../request/requests_export.dart';
 import 'ollama_remote_data_source.dart';
 
 class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
   final ApiProvider _apiProvider;
-  final AppConfig _appConfig;
 
   const OllamaRemoteDataSourceImpl({
     required ApiProvider apiProvider,
-    required AppConfig appConfig,
-  })  : _apiProvider = apiProvider,
-        _appConfig = appConfig;
+  })  : _apiProvider = apiProvider;
 
   @override
   Future<Stream> generateAnswerAsStream({
@@ -25,7 +22,7 @@ class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
   }) async {
     return _apiProvider.post(
       ApiRequest(
-        endpoint: '${_appConfig.stgUrl}/api/generate',
+        endpoint: '${Env.baseUrl}/api/generate',
         body: request.toJson(),
         params: null,
       ),
@@ -42,7 +39,7 @@ class OllamaRemoteDataSourceImpl implements OlamaRemoteDataSource {
   }) {
     return _apiProvider.post(
       ApiRequest(
-        endpoint: '${_appConfig.stgUrl}/api/generate',
+        endpoint: '${Env.baseUrl}/api/generate',
         body: request.toJson(),
         params: null,
       ),

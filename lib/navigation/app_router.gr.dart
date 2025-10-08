@@ -14,7 +14,7 @@ part of 'app_router.dart';
 /// [OllamaChatResponseTabPage]
 class OllamaChatResponseTabRoute extends PageRouteInfo<void> {
   const OllamaChatResponseTabRoute({List<PageRouteInfo>? children})
-      : super(OllamaChatResponseTabRoute.name, initialChildren: children);
+    : super(OllamaChatResponseTabRoute.name, initialChildren: children);
 
   static const String name = 'OllamaChatResponseTabRoute';
 
@@ -30,7 +30,7 @@ class OllamaChatResponseTabRoute extends PageRouteInfo<void> {
 /// [OllamaJsonResponseTabPage]
 class OllamaJsonResponseTabRoute extends PageRouteInfo<void> {
   const OllamaJsonResponseTabRoute({List<PageRouteInfo>? children})
-      : super(OllamaJsonResponseTabRoute.name, initialChildren: children);
+    : super(OllamaJsonResponseTabRoute.name, initialChildren: children);
 
   static const String name = 'OllamaJsonResponseTabRoute';
 
@@ -46,7 +46,7 @@ class OllamaJsonResponseTabRoute extends PageRouteInfo<void> {
 /// [OllamaPage]
 class OllamaRoute extends PageRouteInfo<void> {
   const OllamaRoute({List<PageRouteInfo>? children})
-      : super(OllamaRoute.name, initialChildren: children);
+    : super(OllamaRoute.name, initialChildren: children);
 
   static const String name = 'OllamaRoute';
 
@@ -62,7 +62,7 @@ class OllamaRoute extends PageRouteInfo<void> {
 /// [OllamaProblemsResponseTabPage]
 class OllamaProblemsResponseTabRoute extends PageRouteInfo<void> {
   const OllamaProblemsResponseTabRoute({List<PageRouteInfo>? children})
-      : super(OllamaProblemsResponseTabRoute.name, initialChildren: children);
+    : super(OllamaProblemsResponseTabRoute.name, initialChildren: children);
 
   static const String name = 'OllamaProblemsResponseTabRoute';
 
@@ -78,7 +78,7 @@ class OllamaProblemsResponseTabRoute extends PageRouteInfo<void> {
 /// [OllamaQuestionsResponseTabPage]
 class OllamaQuestionsResponseTabRoute extends PageRouteInfo<void> {
   const OllamaQuestionsResponseTabRoute({List<PageRouteInfo>? children})
-      : super(OllamaQuestionsResponseTabRoute.name, initialChildren: children);
+    : super(OllamaQuestionsResponseTabRoute.name, initialChildren: children);
 
   static const String name = 'OllamaQuestionsResponseTabRoute';
 
@@ -94,7 +94,7 @@ class OllamaQuestionsResponseTabRoute extends PageRouteInfo<void> {
 /// [OllamaThinkingResponseTabPage]
 class OllamaThinkingResponseTabRoute extends PageRouteInfo<void> {
   const OllamaThinkingResponseTabRoute({List<PageRouteInfo>? children})
-      : super(OllamaThinkingResponseTabRoute.name, initialChildren: children);
+    : super(OllamaThinkingResponseTabRoute.name, initialChildren: children);
 
   static const String name = 'OllamaThinkingResponseTabRoute';
 

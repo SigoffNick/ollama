@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$OperationModel {
   String? get name;
   String? get type;
-  String? get metod;
+  @JsonKey(name: 'metod')
+  String? get method;
   String? get path;
   String? get variable;
   String? get where;
@@ -41,7 +42,7 @@ mixin _$OperationModel {
             other is OperationModel &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.metod, metod) || other.metod == metod) &&
+            (identical(other.method, method) || other.method == method) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.variable, variable) ||
                 other.variable == variable) &&
@@ -53,12 +54,12 @@ mixin _$OperationModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, type, metod, path,
+  int get hashCode => Object.hash(runtimeType, name, type, method, path,
       variable, where, errorVariable, script);
 
   @override
   String toString() {
-    return 'OperationModel(name: $name, type: $type, metod: $metod, path: $path, variable: $variable, where: $where, errorVariable: $errorVariable, script: $script)';
+    return 'OperationModel(name: $name, type: $type, method: $method, path: $path, variable: $variable, where: $where, errorVariable: $errorVariable, script: $script)';
   }
 }
 
@@ -71,7 +72,7 @@ abstract mixin class $OperationModelCopyWith<$Res> {
   $Res call(
       {String? name,
       String? type,
-      String? metod,
+      @JsonKey(name: 'metod') String? method,
       String? path,
       String? variable,
       String? where,
@@ -94,7 +95,7 @@ class _$OperationModelCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? type = freezed,
-    Object? metod = freezed,
+    Object? method = freezed,
     Object? path = freezed,
     Object? variable = freezed,
     Object? where = freezed,
@@ -110,9 +111,9 @@ class _$OperationModelCopyWithImpl<$Res>
           ? _self.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      metod: freezed == metod
-          ? _self.metod
-          : metod // ignore: cast_nullable_to_non_nullable
+      method: freezed == method
+          ? _self.method
+          : method // ignore: cast_nullable_to_non_nullable
               as String?,
       path: freezed == path
           ? _self.path
@@ -234,7 +235,7 @@ extension OperationModelPatterns on OperationModel {
     TResult Function(
             String? name,
             String? type,
-            String? metod,
+            @JsonKey(name: 'metod') String? method,
             String? path,
             String? variable,
             String? where,
@@ -246,7 +247,7 @@ extension OperationModelPatterns on OperationModel {
     final _that = this;
     switch (_that) {
       case _OperationModel() when $default != null:
-        return $default(_that.name, _that.type, _that.metod, _that.path,
+        return $default(_that.name, _that.type, _that.method, _that.path,
             _that.variable, _that.where, _that.errorVariable, _that.script);
       case _:
         return orElse();
@@ -271,7 +272,7 @@ extension OperationModelPatterns on OperationModel {
     TResult Function(
             String? name,
             String? type,
-            String? metod,
+            @JsonKey(name: 'metod') String? method,
             String? path,
             String? variable,
             String? where,
@@ -282,7 +283,7 @@ extension OperationModelPatterns on OperationModel {
     final _that = this;
     switch (_that) {
       case _OperationModel():
-        return $default(_that.name, _that.type, _that.metod, _that.path,
+        return $default(_that.name, _that.type, _that.method, _that.path,
             _that.variable, _that.where, _that.errorVariable, _that.script);
       case _:
         throw StateError('Unexpected subclass');
@@ -306,7 +307,7 @@ extension OperationModelPatterns on OperationModel {
     TResult? Function(
             String? name,
             String? type,
-            String? metod,
+            @JsonKey(name: 'metod') String? method,
             String? path,
             String? variable,
             String? where,
@@ -317,7 +318,7 @@ extension OperationModelPatterns on OperationModel {
     final _that = this;
     switch (_that) {
       case _OperationModel() when $default != null:
-        return $default(_that.name, _that.type, _that.metod, _that.path,
+        return $default(_that.name, _that.type, _that.method, _that.path,
             _that.variable, _that.where, _that.errorVariable, _that.script);
       case _:
         return null;
@@ -331,7 +332,7 @@ class _OperationModel implements OperationModel {
   const _OperationModel(
       {this.name,
       this.type,
-      this.metod,
+      @JsonKey(name: 'metod') this.method,
       this.path,
       this.variable,
       this.where,
@@ -345,7 +346,8 @@ class _OperationModel implements OperationModel {
   @override
   final String? type;
   @override
-  final String? metod;
+  @JsonKey(name: 'metod')
+  final String? method;
   @override
   final String? path;
   @override
@@ -379,7 +381,7 @@ class _OperationModel implements OperationModel {
             other is _OperationModel &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.metod, metod) || other.metod == metod) &&
+            (identical(other.method, method) || other.method == method) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.variable, variable) ||
                 other.variable == variable) &&
@@ -391,12 +393,12 @@ class _OperationModel implements OperationModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, type, metod, path,
+  int get hashCode => Object.hash(runtimeType, name, type, method, path,
       variable, where, errorVariable, script);
 
   @override
   String toString() {
-    return 'OperationModel(name: $name, type: $type, metod: $metod, path: $path, variable: $variable, where: $where, errorVariable: $errorVariable, script: $script)';
+    return 'OperationModel(name: $name, type: $type, method: $method, path: $path, variable: $variable, where: $where, errorVariable: $errorVariable, script: $script)';
   }
 }
 
@@ -411,7 +413,7 @@ abstract mixin class _$OperationModelCopyWith<$Res>
   $Res call(
       {String? name,
       String? type,
-      String? metod,
+      @JsonKey(name: 'metod') String? method,
       String? path,
       String? variable,
       String? where,
@@ -434,7 +436,7 @@ class __$OperationModelCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? type = freezed,
-    Object? metod = freezed,
+    Object? method = freezed,
     Object? path = freezed,
     Object? variable = freezed,
     Object? where = freezed,
@@ -450,9 +452,9 @@ class __$OperationModelCopyWithImpl<$Res>
           ? _self.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      metod: freezed == metod
-          ? _self.metod
-          : metod // ignore: cast_nullable_to_non_nullable
+      method: freezed == method
+          ? _self.method
+          : method // ignore: cast_nullable_to_non_nullable
               as String?,
       path: freezed == path
           ? _self.path

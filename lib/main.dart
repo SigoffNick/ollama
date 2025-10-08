@@ -3,22 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/app/app.dart';
-import 'core/app_config/app_config.dart';
 import 'core/app_logger/app_logger.dart';
 import 'core/bloc_observer/app_bloc_observer.dart';
+import 'core/flavor/flavor.dart';
 import 'di/app_di.dart';
 
-Future<void> mainCommon(Flavor flavor) async {
+void main() async {
   await runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
+    final Flavor flavor = getFlavor();
+    AppLogger().info('App started in $flavor mode');
+
     await appLocator.pushNewScopeAsync(
       init: (_) async {
-        AppDI.initDependencies(appLocator, flavor);
+        AppDI.initDependencies(appLocator);
       },
     );
     Bloc.observer = AppBlocObserver();
-    AppLogger().info('App started in $flavor mode');
 
     runApp(const App());
   }, (Object error, StackTrace stack) {
